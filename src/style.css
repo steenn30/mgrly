@@ -225,6 +225,7 @@ button {
   box-shadow: 0 16px 35px -25px rgba(48, 52, 139, 0.95);
   transition: transform 160ms ease, box-shadow 160ms ease;
 }
+
 button:hover {
   transform: translateY(-1px);
   box-shadow: 0 20px 40px -25px rgba(48, 52, 139, 0.95);
