@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Space+Grotesk:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Pacifico&family=Space+Grotesk:wght@400;500;600&display=swap');
 
 :root {
   --ink: #0f1024;
@@ -9,6 +9,7 @@
   --periwinkle-600: #6f75ff;
   --periwinkle-800: #30348b;
   --neon-yellow: #f2ff37;
+  --bubblegum: #ff8ad8;
   font-family: 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   line-height: 1.55;
   color: var(--ink);
@@ -52,23 +53,26 @@ body {
 .landing__title {
   position: relative;
   margin: 0;
-  font-family: 'Orbitron', 'Space Grotesk', sans-serif;
-  font-size: clamp(3.25rem, 12vw, 6rem);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink);
+  font-family: 'Pacifico', 'Space Grotesk', sans-serif;
+  font-size: clamp(3rem, 11vw, 5.5rem);
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--bubblegum);
+  text-shadow: 0 12px 28px rgba(255, 138, 216, 0.35), 0 0 18px rgba(242, 255, 55, 0.25);
   padding: 0 1rem;
 }
 .landing__highlight {
   position: absolute;
   inset: 50% auto auto 50%;
-  width: clamp(220px, 60vw, 440px);
-  height: clamp(120px, 18vw, 200px);
-  transform: translate(-50%, -55%);
-  border-radius: 45% 55% 50% 50%;
-  background: radial-gradient(circle at 45% 40%, rgba(242, 255, 55, 0.45), transparent 65%),
+  width: clamp(230px, 62vw, 460px);
+  height: clamp(130px, 20vw, 220px);
+  transform: translate(-50%, -56%);
+  border-radius: 48% 52% 55% 45%;
+  background:
+    radial-gradient(circle at 35% 40%, rgba(255, 138, 216, 0.45), transparent 65%),
+    radial-gradient(circle at 70% 20%, rgba(242, 255, 55, 0.35), transparent 70%),
     linear-gradient(135deg, rgba(159, 168, 255, 0.35), rgba(255, 255, 255, 0.6));
-  filter: blur(26px);
+  filter: blur(28px);
   z-index: -1;
 }
 .landing__search {

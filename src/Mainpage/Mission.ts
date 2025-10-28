@@ -17,7 +17,7 @@ export function createMissionSection({
 
   const title = document.createElement('h1')
   title.className = 'landing__title'
-  title.textContent = 'mgrly'
+  title.textContent = 'suh dude, welcome to mgrly 💖'
 
   const highlight = document.createElement('span')
   highlight.className = 'landing__highlight'
