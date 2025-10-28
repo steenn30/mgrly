@@ -1,96 +1,283 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
+  color: #0f172a;
+  background-color: #f8fafc;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  color: inherit;
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  background: radial-gradient(circle at top right, #e0f2fe, transparent 55%), #f8fafc;
 }
 
 #app {
-  max-width: 1280px;
+  min-height: 100vh;
+  padding: clamp(1.5rem, 3vw, 3rem);
+}
+
+.layout {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #3178c6aa);
+.mission {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2rem);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border-radius: 1.5rem;
+  background: linear-gradient(135deg, #0f172a, #1d4ed8);
+  color: #f8fafc;
 }
 
-.card {
-  padding: 2em;
+.mission__tagline {
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 600;
+  margin: 0.5rem 0;
 }
 
-.read-the-docs {
-  color: #888;
+.mission__description {
+  max-width: 40ch;
+  margin: 0;
+  color: rgba(248, 250, 252, 0.88);
+}
+
+.manager-form {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  background: rgba(248, 250, 252, 0.12);
+  backdrop-filter: blur(8px);
+}
+
+.manager-form__heading {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.form-field {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.95rem;
+}
+
+.form-field span {
+  font-weight: 600;
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(15, 23, 42, 0.18);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.08);
+}
+
+textarea {
+  resize: vertical;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  font: inherit;
+  font-weight: 600;
+  padding: 0.65rem 1.2rem;
+  border-radius: 999px;
+  border: none;
+  background: #f97316;
+  color: #fff7ed;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px -18px rgba(249, 115, 22, 0.8);
+}
+
+button.secondary {
+  background: rgba(15, 23, 42, 0.08);
+  color: #0f172a;
+}
+
+.panel {
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  border-radius: 1.5rem;
+  background: #ffffff;
+  box-shadow: 0 18px 40px -35px rgba(15, 23, 42, 0.8);
+}
+
+.search__form {
+  display: grid;
+  gap: 1rem;
+}
+
+.search__actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.manager-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.manager-card {
+  display: grid;
+  gap: 1.25rem;
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  border-radius: 1.5rem;
+  background: #ffffff;
+  box-shadow: 0 24px 50px -45px rgba(15, 23, 42, 0.9);
+}
+
+.manager-card__header h2 {
+  margin: 0;
+  font-size: clamp(1.35rem, 3vw, 1.8rem);
+}
+
+.manager-card__meta {
+  display: grid;
+  gap: 0.35rem;
+  color: #475569;
+}
+
+.manager-card__role {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.manager-card__reviews {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.reviews {
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.reviews__item {
+  padding: 1rem;
+  border-radius: 1rem;
+  background: rgba(148, 163, 184, 0.12);
+  display: grid;
+  gap: 0.5rem;
+}
+
+.reviews__rating {
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  color: #f59e0b;
+}
+
+.reviews__summary {
+  margin: 0;
+  color: #0f172a;
+}
+
+.reviews__date {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.reviews__empty {
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: rgba(148, 163, 184, 0.16);
+  color: #475569;
+}
+
+.review-form {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.review-form__heading {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.sidebar {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.alphabetized-list {
+  padding: clamp(1.1rem, 3vw, 1.4rem);
+  border-radius: 1.25rem;
+  background: #ffffff;
+  box-shadow: 0 18px 40px -35px rgba(15, 23, 42, 0.8);
+}
+
+.alphabetized-list h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1.05rem;
+}
+
+.alphabetized-list__items {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.alphabetized-list__items li span {
+  color: #64748b;
+  font-weight: 500;
+  margin-left: 0.25rem;
+}
+
+.alphabetized-list__empty {
+  margin: 0;
+  color: #64748b;
+}
+
+.empty-state {
+  margin: 0;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  background: rgba(148, 163, 184, 0.18);
+  color: #475569;
+  text-align: center;
+}
+
+@media (min-width: 960px) {
+  .layout {
+    grid-template-columns: 2.5fr 1fr;
   }
-  a:hover {
-    color: #747bff;
+
+  .mission {
+    grid-column: 1 / -1;
   }
-  button {
-    background-color: #f9f9f9;
+
+  .panel,
+  .manager-grid {
+    grid-column: 1 / 2;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: clamp(1.5rem, 4vh, 3rem);
+    align-self: start;
   }
 }
