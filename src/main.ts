@@ -1,10 +1,8 @@
 import './style.css'
 import { createMissionSection } from './Mainpage/Mission.ts'
 import { createManagerInfo } from './PPV/ManagerInfo.ts'
-import { createCompaniesAlphabetized } from './Search/CompaniesAlphabetized.ts'
-import { createManagersAlphabetized } from './Search/Managers.ts'
-import { createManager, createReview, loadManagers, saveManagers } from './store.ts'
-import type { Manager, NewManagerInput } from './types.ts'
+import { createReview, loadManagers, saveManagers } from './store.ts'
+import type { Manager } from './types.ts'
 
 const app = document.querySelector<HTMLDivElement>('#app')
 if (!app) {
@@ -12,39 +10,26 @@ if (!app) {
 }
 
 let managers: Manager[] = loadManagers()
-let selectedCompany = ''
+let query = ''
 
-const layout = document.createElement('div')
-layout.className = 'layout'
+const shell = document.createElement('div')
+shell.className = 'app-shell'
 
-const missionSection = createMissionSection({
-  selectedCompany,
-  companies: getCompanies(),
+const landing = createMissionSection({
+  selectedQuery: query,
   onSearch: handleSearch,
-  onCreateManager: handleCreateManager,
 })
 
-const managersContainer = document.createElement('section')
-managersContainer.className = 'manager-grid'
+const results = document.createElement('section')
+results.className = 'results'
 
-const sidebar = document.createElement('aside')
-sidebar.className = 'sidebar'
-
-layout.append(missionSection.element, managersContainer, sidebar)
-app.replaceChildren(layout)
+shell.append(landing.element, results)
+app.replaceChildren(shell)
 
 render()
 
-function handleCreateManager(input: NewManagerInput): void {
-  const manager = createManager(input)
-  managers = [...managers, manager]
-  saveManagers(managers)
-  selectedCompany = manager.company
-  render()
-}
-
-function handleSearch(company: string): void {
-  selectedCompany = company
+function handleSearch(nextQuery: string): void {
+  query = nextQuery
   render()
 }
 
@@ -53,60 +38,56 @@ function handleCreateReview(managerId: string, rating: number, summary: string):
     if (manager.id !== managerId) {
       return manager
     }
+
     const review = createReview(managerId, rating, summary)
     return {
       ...manager,
       reviews: [...manager.reviews, review],
     }
   })
+
   saveManagers(managers)
   render()
 }
 
 function render(): void {
-  missionSection.setCompanies(getCompanies())
-  missionSection.setSearchValue(selectedCompany)
-  renderManagers()
-  renderSidebar()
-}
+  landing.setSearchValue(query)
 
-function getCompanies(): string[] {
-  return Array.from(
-    new Set(managers.map((manager) => manager.company.trim()).filter(Boolean)),
-  )
-}
-
-function renderManagers(): void {
-  const filtered = selectedCompany
-    ? managers.filter((manager) => manager.company.toLowerCase() === selectedCompany.toLowerCase())
-    : managers
-
-  if (filtered.length === 0) {
-    const empty = document.createElement('p')
-    empty.className = 'empty-state'
-    empty.textContent =
-      selectedCompany
-        ? `No managers found for “${selectedCompany}”. Try another company or add a new manager.`
-        : 'No managers yet. Use the form above to share someone great.'
-    managersContainer.replaceChildren(empty)
+  const trimmed = query.trim().toLowerCase()
+  if (!trimmed) {
+    const empty = document.createElement('div')
+    empty.className = 'results__placeholder'
+    empty.innerHTML = `
+      <p>Type a company or manager name to surface neon-bright reviews.</p>
+    `
+    results.replaceChildren(empty)
     return
   }
 
-  const cards = filtered
-    .slice()
+  const filtered = managers
+    .filter((manager) => {
+      const company = manager.company.toLowerCase()
+      const name = manager.name.toLowerCase()
+      return company.includes(trimmed) || name.includes(trimmed)
+    })
     .sort((a, b) => a.name.localeCompare(b.name))
-    .map((manager) =>
-      createManagerInfo({
-        manager,
-        onCreateReview: handleCreateReview,
-      }),
-    )
 
-  managersContainer.replaceChildren(...cards)
-}
+  if (filtered.length === 0) {
+    const empty = document.createElement('div')
+    empty.className = 'results__placeholder'
+    empty.innerHTML = `
+      <p>No matches for “${query.trim()}”. Try another search.</p>
+    `
+    results.replaceChildren(empty)
+    return
+  }
 
-function renderSidebar(): void {
-  const companiesList = createCompaniesAlphabetized(managers)
-  const managersList = createManagersAlphabetized(managers)
-  sidebar.replaceChildren(companiesList, managersList)
+  const cards = filtered.map((manager) =>
+    createManagerInfo({
+      manager,
+      onCreateReview: handleCreateReview,
+    }),
+  )
+
+  results.replaceChildren(...cards)
 }
