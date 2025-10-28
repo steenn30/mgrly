@@ -34,7 +34,12 @@ export function createMissionSection({
   searchInput.autocomplete = 'off'
   searchInput.value = selectedQuery
 
-  form.append(searchInput)
+  const goButton = document.createElement('button')
+  goButton.type = 'submit'
+  goButton.className = 'landing__go'
+  goButton.textContent = 'Go'
+
+  form.append(searchInput, goButton)
 
   const handleSearch = () => {
     onSearch(searchInput.value)
@@ -44,8 +49,6 @@ export function createMissionSection({
     event.preventDefault()
     handleSearch()
   })
-
-  searchInput.addEventListener('input', handleSearch)
 
   section.append(title, form)
 
