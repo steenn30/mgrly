@@ -39,6 +39,25 @@ body {
   color: #f8fafc;
 }
 
+.mission__search {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  background: rgba(248, 250, 252, 0.12);
+  backdrop-filter: blur(8px);
+}
+
+.mission__search .form-field span {
+  color: rgba(248, 250, 252, 0.85);
+}
+
+.mission__actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
 .mission__tagline {
   font-size: clamp(1.4rem, 4vw, 2rem);
   font-weight: 600;
@@ -54,10 +73,6 @@ body {
 .manager-form {
   display: grid;
   gap: 1rem;
-  padding: 1.5rem;
-  border-radius: 1.25rem;
-  background: rgba(248, 250, 252, 0.12);
-  backdrop-filter: blur(8px);
 }
 
 .manager-form__heading {
@@ -113,22 +128,38 @@ button.secondary {
   color: #0f172a;
 }
 
-.panel {
-  padding: clamp(1.25rem, 3vw, 1.75rem);
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(6px);
+  z-index: 10;
+}
+
+.modal.is-open {
+  display: grid;
+}
+
+.modal__content {
+  width: min(420px, 100%);
+  display: grid;
+  gap: 1.25rem;
+  padding: clamp(1.5rem, 3vw, 2rem);
   border-radius: 1.5rem;
   background: #ffffff;
-  box-shadow: 0 18px 40px -35px rgba(15, 23, 42, 0.8);
+  color: #0f172a;
+  box-shadow: 0 30px 70px -45px rgba(15, 23, 42, 0.8);
 }
 
-.search__form {
-  display: grid;
-  gap: 1rem;
+.modal__close {
+  justify-self: end;
 }
 
-.search__actions {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
+body.modal-open {
+  overflow: hidden;
 }
 
 .manager-grid {

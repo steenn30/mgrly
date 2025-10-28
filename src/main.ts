@@ -3,7 +3,6 @@ import { createMissionSection } from './Mainpage/Mission.ts'
 import { createManagerInfo } from './PPV/ManagerInfo.ts'
 import { createCompaniesAlphabetized } from './Search/CompaniesAlphabetized.ts'
 import { createManagersAlphabetized } from './Search/Managers.ts'
-import { createSearchBar } from './Search/SearchBar.ts'
 import { createManager, createReview, loadManagers, saveManagers } from './store.ts'
 import type { Manager, NewManagerInput } from './types.ts'
 
@@ -18,12 +17,12 @@ let selectedCompany = ''
 const layout = document.createElement('div')
 layout.className = 'layout'
 
-const heroSection = createMissionSection({
+const missionSection = createMissionSection({
+  selectedCompany,
+  companies: getCompanies(),
+  onSearch: handleSearch,
   onCreateManager: handleCreateManager,
 })
-
-const searchContainer = document.createElement('section')
-searchContainer.className = 'panel'
 
 const managersContainer = document.createElement('section')
 managersContainer.className = 'manager-grid'
@@ -31,7 +30,7 @@ managersContainer.className = 'manager-grid'
 const sidebar = document.createElement('aside')
 sidebar.className = 'sidebar'
 
-layout.append(heroSection, searchContainer, managersContainer, sidebar)
+layout.append(missionSection.element, managersContainer, sidebar)
 app.replaceChildren(layout)
 
 render()
@@ -41,6 +40,11 @@ function handleCreateManager(input: NewManagerInput): void {
   managers = [...managers, manager]
   saveManagers(managers)
   selectedCompany = manager.company
+  render()
+}
+
+function handleSearch(company: string): void {
+  selectedCompany = company
   render()
 }
 
@@ -60,23 +64,16 @@ function handleCreateReview(managerId: string, rating: number, summary: string):
 }
 
 function render(): void {
-  renderSearch()
+  missionSection.setCompanies(getCompanies())
+  missionSection.setSearchValue(selectedCompany)
   renderManagers()
   renderSidebar()
 }
 
-function renderSearch(): void {
-  const companies = Array.from(new Set(managers.map((manager) => manager.company.trim()).filter(Boolean)))
-  const searchBar = createSearchBar({
-    companies,
-    selectedCompany,
-    onFilterChange: (company) => {
-      selectedCompany = company
-      renderManagers()
-    },
-  })
-
-  searchContainer.replaceChildren(searchBar)
+function getCompanies(): string[] {
+  return Array.from(
+    new Set(managers.map((manager) => manager.company.trim()).filter(Boolean)),
+  )
 }
 
 function renderManagers(): void {
